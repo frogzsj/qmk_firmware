@@ -8,18 +8,18 @@ extern keymap_config_t keymap_config;
 #define _FN1 1
 #define _FN2 2
 #define _FN3 3
-#define _NORMAN 5
-#define _DVORAK 6
-#define _COLEMAK 7
+// #define _NORMAN 5
+// #define _DVORAK 6
+// #define _COLEMAK 7
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   FN1,
   FN2,
   FN3,
-  NORMAN,
-  DVORAK,
-  COLEMAK,
+  // NORMAN,
+  // DVORAK,
+  // COLEMAK,
 };
 
 // <== Readability ==>
@@ -27,15 +27,6 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 // <== END ==>
 // <== Modifier Toggles ==>
-//// GUI
-#define KC_GU_L GUI_T(KC_LEFT_PAREN)
-#define KC_GU_R GUI_T(KC_RIGHT_CURLY_BRACE)
-//// CTL
-#define KC_CT_L CTL_T(KC_LBRACKET)
-#define KC_CT_R CTL_T(KC_RBRACKET)
-//// ALT
-#define KC_AL_L ALT_T(KC_LEFT_CURLY_BRACE)
-#define KC_AL_R ALT_T(KC_RIGHT_CURLY_BRACE)
 // <== END ==>
 // <== Key Combos ==>
 #define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
@@ -53,12 +44,6 @@ enum custom_keycodes {
 #define KC_SLAL LGUI(KC_A)
 #define KC_RESET RESET
 // <== END ==>
-// <== Layer Toggles ==>
-#define KC_X1L  LT(_FN1, KC_LBRACKET)
-#define KC_X1R  LT(_FN1, KC_RIGHT_PAREN)
-#define KC_X2L  LT(_FN2, KC_LEFT_CURLY_BRACE)
-#define KC_X2R  LT(_FN2, KC_RBRACKET)
-#define KC_X3L  LT(_FN3, KC_RFSH)
 //// Layouts
 #define KC_QRTY DF(_QWERTY)
 #define KC_NRMN DF(_NORMAN)
@@ -66,31 +51,44 @@ enum custom_keycodes {
 #define KC_CLMK DF(_COLEMAK)
 // <== END ==>
 
-// TODO:
-// colemak, dvorak
+// BOTTOM ROW
+/// LEFT SIDE
+#define KC_X3L  MO(_FN3)
+#define KC_CTLL CTL_T(KC_EQUAL)
+#define KC_X2L  LT(_FN2, KC_LBRACKET)
+#define KC_X1L  LT(_FN1, KC_BSPACE)
+#define KC_GUIL GUI_T(KC_DELETE)
+
+//// RIGHT SIDE
+#define KC_ALTD ALT_T(KC_ENTER)
+#define KC_X1R  LT(_FN1, KC_SPACE)
+#define KC_X2R  LT(_FN2, KC_RBRACKET)
+#define KC_GUIR RGUI(KC_GRAVE)
+// #define KC_MEHR MEH(KC_QUOTE)
+                                                       
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = KC_KEYMAP(
     //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
        TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,BSLS,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN, ENT,
+       ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
     //|----+----+----+----+----+----|   |----+----+----+----+----+----|
-       LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSFT,
+       LSPO, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSPC,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-        X3L,HYPR, X2L, X1L,GU_L,BSPC,      SPC, X1R, X2R,GU_R,RCTL,RALT
+        X3L,MINS,CTLL, X2L, X1L,GUIL,     ALTD, X1R, X2R,GUIR,SWTW,RFSH
     //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
   [_FN1] = KC_KEYMAP(
     //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-       HOME,PGUP, UP ,PGDN,    ,MRWD,     PEQL,  P7,  P8,  P9,CIRC,    ,
+       HOME,PGUP, UP ,PGDN,    ,MRWD,     PEQL,  7,  8,  9,CIRC,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-        END,LEFT,DOWN,RGHT,VOLU,MPLY,     PPLS,  P4,  P5,  P6,PAST,    ,
+        END,LEFT,DOWN,RGHT,VOLU,MPLY,     PPLS,  4,  5,  6,PAST,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       FNDR, F14, F15,MUTE,VOLD,MFFD,     PMNS,  P1,  P2,  P3,PSLS,    ,
+       FNDR, F14, F15,MUTE,VOLD,MFFD,     PMNS,  1,  2,  3,PSLS,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       RFSH,SWTW,    ,    ,    , DEL,     PENT,    ,  P0,PDOT,    ,
+           ,    ,    ,    ,    , DEL,     PENT,    ,  0,PDOT,    ,
     //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
@@ -102,55 +100,55 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
            ,ACL0,ACL1,ACL2,WSTP,WREF,     MINS,EXLM, AT ,HASH,SLSH,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       RFSH,SWTW,    ,BTN1,BTN2, DEL,     PENT,    ,    ,    ,    ,  
+       RFSH,SWTW,    ,    ,BTN2,BTN1,     PENT,    ,    ,    ,    ,  
     //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
   [_FN3] = KC_KEYMAP(
     //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-           ,    ,    ,    ,    ,    ,         ,    , PWR,    ,WAKE,SLEP,
+      RESET,    ,    ,    ,    ,SLEP,         ,    ,    ,    ,    ,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
            ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-           ,QRTY,NRMN,DVRK,CLMK,    ,         ,    ,    ,    ,    ,    ,
+           ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
     //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-           ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,RESET
+           ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
     //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
   
-  [_NORMAN] = KC_KEYMAP(
-    //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-       TAB , Q  , W  , D  , F  , K  ,      J  , U  , R  , L  ,SCLN, BSLS,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       ESC , A  , S  , E  , T  , G  ,      Y  , N  , I  , O  , H  , ENT,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       LSFT , Z  , X  , C  , V  , B  ,      P  , M  ,COMM,DOT ,SLSH, RSFT,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-        X3L,HYPR, X2L, X1L,GU_L,BSPC,      SPC, X1R, X2R,GU_R,RCTL,RALT
-    //`----+----+----+----+----+----'    `----+----+----+----+----+----'
-  ),
+  // [_NORMAN] = KC_KEYMAP(
+  //   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  //      TAB , Q  , W  , D  , F  , K  ,      J  , U  , R  , L  ,SCLN, BSLS,
+  //   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      ESC , A  , S  , E  , T  , G  ,      Y  , N  , I  , O  , H  , QUOT,
+  //   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      LSPO , Z  , X  , C  , V  , B  ,      P  , M  ,COMM,DOT ,SLSH, RSPC,
+  // //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //     X3L,HYPL, X2L, X1L,GUIL,CTLB,     ALTD, X1R, X2R,GUIR, MEH,RFSH
+  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  // ),
 
-  [_DVORAK] = KC_KEYMAP(
-    //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-       TAB ,QUOT,COMM, DOT, P  , Y  ,      F  , G  , C  , R  , L  , BSLS,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       ESC , A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  , ENT,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       LSFT ,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  , RSFT,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-        X3L,HYPR, X2L, X1L,GU_L,BSPC,      SPC, X1R, X2R,GU_R,RCTL,RALT
-    //`----+----+----+----+----+----'    `----+----+----+----+----+----'
-  ),
+  // [_DVORAK] = KC_KEYMAP(
+  //   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  //      TAB ,QUOT,COMM, DOT, P  , Y  ,      F  , G  , C  , R  , L  , BSLS,
+  //   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      ESC , A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  , QUOT,
+  //   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      LSPO ,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  , RSPC,
+  // //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      X3L,HYPL, X2L, X1L,GUIL,CTLB,     ALTD, X1R, X2R,GUIR, MEH,RFSH
+  // //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  // ),
 
-  [_COLEMAK] = KC_KEYMAP(
-    //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-       TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN, BSLS,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       ESC , A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  , ENT,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-       LSFT , Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH, RSFT,
-    //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-        X3L,HYPR, X2L, X1L,GU_L,BSPC,      SPC, X1R, X2R,GU_R,RCTL,RALT
-    //`----+----+----+----+----+----'    `----+----+----+----+----+----'
-  )
+  // [_COLEMAK] = KC_KEYMAP(
+  //   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  //      TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN, BSLS,
+  //   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      ESC , A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  , QUOT,
+  //   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //      LSPO , Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH, RSPC,
+  // //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //     X3L,HYPL, X2L, X1L,GUIL,CTLB,     ALTD, X1R, X2R,GUIR, MEH,RFSH
+  // //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  // )
 };
